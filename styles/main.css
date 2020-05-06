@@ -1,0 +1,35 @@
+:root {
+  --palette-footer: #533747;
+  --palette-header: #86bbbd;
+  --palette-main:  #76949f;
+  --palette-buttons: #6a6b83;
+}
+
+*, *:before, *:after {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--palette-main);
+}
+
+#main-header {
+  width: 100vw;
+  height: 50px;
+  background-color: var(--palette-header);
+}
+
+.calculator-btn {
+  background-color: var(--palette-buttons);
+}
+
+#main-footer {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 50px;
+  background-color: var(--palette-footer);
+}
