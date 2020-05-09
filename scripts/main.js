@@ -32,22 +32,18 @@ function initializeEventListeners() {
     outputCalculator.value = doOperation(inputCalculator.value);
   });
 
-  document.addEventListener('keypress', (e) => {
-    allKeyboardButtons.forEach(keybtn => {
-      if(e.key == keybtn.innerText) keybtn.click();
-    });
-    if(e.key == '=' || e.key == 'Enter') equalsButton.click();
-  });
-
   document.addEventListener('keydown', (e) => {
     allKeyboardButtons.forEach(keybtn => {
-      if(e.key == keybtn.innerText) keybtn.classList.add('hover-effect');
+      if(e.key == keybtn.innerText || (e.key == 'Enter' && keybtn.innerText == '=')) {
+        keybtn.classList.add('hover-effect');
+        keybtn.click();
+      }
     });
   });
 
   document.addEventListener('keyup', (e) => {
     allKeyboardButtons.forEach(keybtn => {
-      if(e.key == keybtn.innerText) keybtn.classList.remove('hover-effect');
+      if(e.key == keybtn.innerText || (e.key == 'Enter' && keybtn.innerText == '=')) keybtn.classList.remove('hover-effect');
     });
   });
 }
