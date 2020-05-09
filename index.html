@@ -9,33 +9,35 @@
   <body>
     <header id="main-header"></header>
     <main id="application-container">
-      <div id="results"></div>
-      <div id="calculation"></div>
+      <div id="results"><input id="output-calculation" class="display" readonly></div>
+      <div id="calculation"><input id="input-calculation" class="display" autofocus></div>
       <div id="buttons">
+        <div id="numbers">
+          <div class="calculator-btn">1</div>
+          <div class="calculator-btn">2</div>
+          <div class="calculator-btn">3</div>
+          <div class="calculator-btn">4</div>
+          <div class="calculator-btn">5</div>
+          <div class="calculator-btn">6</div>
+          <div class="calculator-btn">7</div>
+          <div class="calculator-btn">8</div>
+          <div class="calculator-btn">9</div>
+          <div class="calculator-btn" id="zero-btn">0</div>
+        </div>
         <div id="operations">
-          <div class="calculator-btn">+</div>
-          <div class="calculator-btn">-</div>
-          <div class="calculator-btn">*</div>
-          <div class="calculator-btn">/</div>
-          <div class="calculator-btn">^</div>
-          <div class="calculator-btn">(</div>
-          <div class="calculator-btn">)</div>
+          <div class="calculator-btn" id="add-btn">+</div>
+          <div class="calculator-btn" id="subtract-btn">-</div>
+          <div class="calculator-btn" id="multiply-btn">*</div>
+          <div class="calculator-btn" id="divide-btn">/</div>
+          <div class="calculator-btn" id="exponent-btn">^</div>
+          <div class="calculator-btn" id="l-pthesis-btn">(</div>
+          <div class="calculator-btn" id="r-pthesis-btn">)</div>
+          <div class="calculator-btn" id="equals-btn">=</div> 
         </div>
         <div id="functions">
-          <div class="calculator-btn">DELETE</div>
-          <div class="calculator-btn">SQRT</div>
-        </div>
-        <div id="numbers">
-          <div class="calculator-btn number-btn">1</div>
-          <div class="calculator-btn number-btn">2</div>
-          <div class="calculator-btn number-btn">3</div>
-          <div class="calculator-btn number-btn">4</div>
-          <div class="calculator-btn number-btn">5</div>
-          <div class="calculator-btn number-btn">6</div>
-          <div class="calculator-btn number-btn">7</div>
-          <div class="calculator-btn number-btn">8</div>
-          <div class="calculator-btn number-btn">9</div>
-          <div class="calculator-btn number-btn">0</div>
+          <div class="calculator-btn" id="sqrt-btn">SQRT</div>
+          <div class="calculator-btn" id="delete-btn">DEL</div>
+          <div class="calculator-btn" id="clear-btn">CE</div>
         </div>
       </div>
     </main>
