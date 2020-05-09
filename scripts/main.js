@@ -28,7 +28,7 @@ function initializeEventListeners() {
 
   clearButton.addEventListener('click', clearInput);
   equalsButton.addEventListener('click', () => {
-    doOperation(inputCalculator.value);
+    outputCalculator.value = doOperation(inputCalculator.value);
   });
 }
 
@@ -41,15 +41,28 @@ function clearInput(clearAll = true) {
 
 
 function doOperation(inputString) {
-  let inputArray = inputString.split(new RegExp(/([+-/*^])/gm));
-  console.table(inputArray);
+  let operations = new RegExp(/[+-/*^()]/gm)
+  let inputArray = inputString.split(new RegExp(/([+-/*^()])/gm));
   while(inputArray.length > 1) {
-    
+    for(let i=0; i<inputArray.length; i++) {
+      if(operations.exec(inputArray[i])) {
+        if(inputArray[i] == '+') inputArray[i] = doAddition(inputArray[i-1], inputArray[i+1]);
+        if(inputArray[i] == '-') inputArray[i] = doSubtraction(inputArray[i-1], inputArray[i+1]);
+        if(inputArray[i] == '*') inputArray[i] = doMultiplication(inputArray[i-1], inputArray[i+1]);
+        if(inputArray[i] == '/') inputArray[i] = doDivision(inputArray[i-1], inputArray[i+1]);
+
+        inputArray.splice(i-1,1);
+        inputArray.splice(i,1);
+        break;
+      }
+    }
   }
+
+  return inputArray[0];
 }
 
 function doAddition(a, b) {
-  return a + b;
+  return Number(a) + Number(b);
 }
 
 function doSubtraction(a, b) {
