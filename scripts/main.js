@@ -11,6 +11,7 @@ function initializeEventListeners() {
   let outputCalculator = document.getElementById('output-calculation');
   let numberButtons = document.querySelectorAll('#numbers *');
   let operatorButtons = document.querySelectorAll('#operations *');
+  let allKeyboardButtons = Array.from(numberButtons).concat(Array.from(operatorButtons));
   let clearButton = document.getElementById('clear-btn');
   let equalsButton = document.getElementById('equals-btn');
 
@@ -29,6 +30,25 @@ function initializeEventListeners() {
   clearButton.addEventListener('click', clearInput);
   equalsButton.addEventListener('click', () => {
     outputCalculator.value = doOperation(inputCalculator.value);
+  });
+
+  document.addEventListener('keypress', (e) => {
+    allKeyboardButtons.forEach(keybtn => {
+      if(e.key == keybtn.innerText) keybtn.click();
+    });
+    if(e.key == '=' || e.key == 'Enter') equalsButton.click();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    allKeyboardButtons.forEach(keybtn => {
+      if(e.key == keybtn.innerText) keybtn.classList.add('hover-effect');
+    });
+  });
+
+  document.addEventListener('keyup', (e) => {
+    allKeyboardButtons.forEach(keybtn => {
+      if(e.key == keybtn.innerText) keybtn.classList.remove('hover-effect');
+    });
   });
 }
 
@@ -50,6 +70,7 @@ function doOperation(inputString) {
         if(inputArray[i] == '-') inputArray[i] = doSubtraction(inputArray[i-1], inputArray[i+1]);
         if(inputArray[i] == '*') inputArray[i] = doMultiplication(inputArray[i-1], inputArray[i+1]);
         if(inputArray[i] == '/') inputArray[i] = doDivision(inputArray[i-1], inputArray[i+1]);
+        if(inputArray[i] == '^') inputArray[i] = doExponential(inputArray[i-1], inputArray[i+1]);
 
         inputArray.splice(i-1,1);
         inputArray.splice(i,1);

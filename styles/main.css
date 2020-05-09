@@ -108,6 +108,10 @@ body {
   background-color: var(--palette-buttons-hover);
 }
 
+.hover-effect {
+  background-color: var(--palette-buttons-hover);
+}
+
 /* #main-footer {
   position: absolute;
   bottom: 0px;
