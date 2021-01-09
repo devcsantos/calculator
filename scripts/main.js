@@ -57,8 +57,8 @@ function clearInput(clearAll = true) {
 
 
 function doOperation(inputString) {
-  let operations = new RegExp(/[+-/*^()]/gm)
-  let inputArray = inputString.split(new RegExp(/([+-/*^()])/gm));
+  let operations = new RegExp(/[\+\-\/\*\^\(\)]/gm);
+  let inputArray = inputString.split(new RegExp(/([\+\-\/\*^\(\)])/gm));
   while(inputArray.length > 1) {
     for(let i=0; i<inputArray.length; i++) {
       if(operations.exec(inputArray[i])) {
