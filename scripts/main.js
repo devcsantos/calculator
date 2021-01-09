@@ -11,9 +11,10 @@ function initializeEventListeners() {
   let outputCalculator = document.getElementById('output-calculation');
   let numberButtons = document.querySelectorAll('#numbers *');
   let operatorButtons = document.querySelectorAll('#operations *');
-  let allKeyboardButtons = Array.from(numberButtons).concat(Array.from(operatorButtons));
-  let clearButton = document.getElementById('clear-btn');
+  let deleteButton = document.getElementById('delete-btn');
   let equalsButton = document.getElementById('equals-btn');
+  let allKeyboardButtons = Array.from(numberButtons).concat(Array.from(operatorButtons)).concat(deleteButton);
+  let clearButton = document.getElementById('clear-btn');
 
   numberButtons.forEach(number => {
     number.addEventListener('click', () =>{
@@ -28,13 +29,16 @@ function initializeEventListeners() {
   });
 
   clearButton.addEventListener('click', clearInput);
+  deleteButton.addEventListener('click', backspaceInput);
+
   equalsButton.addEventListener('click', () => {
     outputCalculator.value = doOperation(inputCalculator.value);
   });
 
   document.addEventListener('keydown', (e) => {
+    e.preventDefault()
     allKeyboardButtons.forEach(keybtn => {
-      if(e.key == keybtn.innerText || (e.key == 'Enter' && keybtn.innerText == '=')) {
+      if(e.key == keybtn.innerText || (e.key == 'Enter' && keybtn.innerText == '=') || (e.key == 'Backspace' && keybtn.innerText == 'DEL')) {
         keybtn.classList.add('hover-effect');
         keybtn.click();
       }
@@ -42,8 +46,9 @@ function initializeEventListeners() {
   });
 
   document.addEventListener('keyup', (e) => {
+    e.preventDefault();
     allKeyboardButtons.forEach(keybtn => {
-      if(e.key == keybtn.innerText || (e.key == 'Enter' && keybtn.innerText == '=')) keybtn.classList.remove('hover-effect');
+      if(e.key == keybtn.innerText || (e.key == 'Enter' && keybtn.innerText == '=') || (e.key == 'Backspace' && keybtn.innerText == 'DEL')) keybtn.classList.remove('hover-effect');
     });
   });
 }
@@ -55,6 +60,10 @@ function clearInput(clearAll = true) {
   if(clearAll) outputCalculator.value = '';
 }
 
+function backspaceInput() {
+  let inputCalculator = document.getElementById('input-calculation');
+  inputCalculator.value = inputCalculator.value.slice(0, -1);
+}
 
 function doOperation(inputString) {
   let operations = new RegExp(/[\+\-\/\*\^\(\)]/gm);
