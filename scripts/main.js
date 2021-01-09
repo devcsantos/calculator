@@ -15,6 +15,7 @@ function initializeEventListeners() {
   let equalsButton = document.getElementById('equals-btn');
   let allKeyboardButtons = Array.from(numberButtons).concat(Array.from(operatorButtons)).concat(deleteButton);
   let clearButton = document.getElementById('clear-btn');
+  let specialMode = true; //holder, implement button
 
   numberButtons.forEach(number => {
     number.addEventListener('click', () =>{
@@ -24,7 +25,11 @@ function initializeEventListeners() {
 
   operatorButtons.forEach(operator => {
     operator.addEventListener('click', () => {
-      if(operator.innerText != '=') inputCalculator.value = `${inputCalculator.value}${operator.innerText}`;
+      if(specialMode == true) {
+        if(operator.innerText != '=') inputCalculator.value = `${inputCalculator.value}${operator.innerText}`;
+      } else {
+        outputCalculator.value = inputCalculator.value;
+      }
     });
   });
 
@@ -32,11 +37,12 @@ function initializeEventListeners() {
   deleteButton.addEventListener('click', backspaceInput);
 
   equalsButton.addEventListener('click', () => {
-    outputCalculator.value = doOperation(inputCalculator.value);
+    if(specialMode == true) outputCalculator.value = doSpecialOperation(inputCalculator.value);
+    else outputCalculator = doOperation(inputCalculator.value);
   });
 
   document.addEventListener('keydown', (e) => {
-    e.preventDefault()
+    e.preventDefault();
     allKeyboardButtons.forEach(keybtn => {
       if(e.key == keybtn.innerText || (e.key == 'Enter' && keybtn.innerText == '=') || (e.key == 'Backspace' && keybtn.innerText == 'DEL')) {
         keybtn.classList.add('hover-effect');
@@ -65,7 +71,18 @@ function backspaceInput() {
   inputCalculator.value = inputCalculator.value.slice(0, -1);
 }
 
-function doOperation(inputString) {
+function doOperation(inputString, operation) {
+  if(storedText.length == 0) storedText = inputString;
+  else {
+    if(operation == '+') storedText = doAddition(storedText, inputString);
+    if(operation == '-') storedText = doSubtraction(storedText, inputString);
+    if(operation == '*') storedText = doMultiplication(storedText, inputString);
+    if(operation == '/') storedText = doDivision(storedText, inputString);
+    if(operation == '^') storedText = doExponential(storedText, inputString);
+  }
+}
+
+function doSpecialOperation(inputString) {
   let operations = new RegExp(/[\+\-\/\*\^\(\)]/gm);
   let inputArray = inputString.split(new RegExp(/([\+\-\/\*^\(\)])/gm));
   while(inputArray.length > 1) {
